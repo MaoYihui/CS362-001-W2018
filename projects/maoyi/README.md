@@ -1,1 +1,1 @@
-student name: Yihui mao
+student name: Yihui Mao
