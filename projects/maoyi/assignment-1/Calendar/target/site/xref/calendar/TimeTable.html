@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>TimeTable xref</title>
+<link type="text/css" rel="stylesheet" href="../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../apidocs/calendar/TimeTable.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * TimeTable.java</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> calendar;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment">* This class collects appointments between given two dates.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">* </em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment">*/</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.*;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../calendar/TimeTable.html">TimeTable</a> {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  	
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> <a href="../calendar/TimeTable.html">TimeTable</a>() {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      }
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  	
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">     * Retrieves a range of appointments between two dates.</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">     * @return A list of all of the CalDays between firstDate (inclusive)</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">     *  and lastDate (exclusive) with their respective appointments. </em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     * @throws DateOutOfRangeException If any of the days constructed by the</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     *  given values are invalid, or if lastDay is not after firstDay.</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">     **/</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  	  <strong class="jxr_keyword">public</strong> LinkedList&lt;CalDay&gt; getApptRange(LinkedList&lt;Appt&gt; appts,GregorianCalendar firstDay, GregorianCalendar lastDay)<strong class="jxr_keyword">throws</strong> DateOutOfRangeException{
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		     <em class="jxr_comment">//Create a linked list of calendar days &lt;CalDay&gt; to return</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  	        LinkedList&lt;CalDay&gt; calDays = <strong class="jxr_keyword">new</strong> LinkedList&lt;CalDay&gt;();
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  	     
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  	        
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  	        <em class="jxr_comment">//Make sure that the first day is before the last day</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  	        <strong class="jxr_keyword">if</strong> (!firstDay.before(lastDay)) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  	        	<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> DateOutOfRangeException (<span class="jxr_string">"Second date specified is not  before the first date specified."</span>);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  	        }
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  	        
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  	        
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  	        <em class="jxr_comment">//Create the first CalDay object with the starting date and add to list</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  	        GregorianCalendar nextDay = (GregorianCalendar) firstDay.clone();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  	        <strong class="jxr_keyword">while</strong> (nextDay.before(lastDay)) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  	            calDays.add(<strong class="jxr_keyword">new</strong> CalDay(nextDay));
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  	            nextDay.add(nextDay.DAY_OF_MONTH, 1);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  	        }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  	        
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  	        <em class="jxr_comment">//Retrieve the appts - &lt;appt&gt; </em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; appts.size(); i++) {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  			Appt appt=appts.get(i);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  			<strong class="jxr_keyword">if</strong>(!appt.getValid()) <strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  			<em class="jxr_comment">// Figure out which days the appointment occurs on</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_comment">//			LinkedList&lt;GregorianCalendar&gt; apptOccursOnDays = getApptOccurences(</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_comment">//					appt, firstDay, lastDay);</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  			LinkedList&lt;GregorianCalendar&gt; apptOccursOnDays = getApptOccurences(
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  					appt, lastDay, firstDay);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  			<em class="jxr_comment">// For each day in the list, calculate the difference between the</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  			<em class="jxr_comment">// first day and the day of occurrence and add the appointment to</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  			<em class="jxr_comment">// the correct CalDay</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  			<strong class="jxr_keyword">int</strong> daysDifference = 0;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  			nextDay = (GregorianCalendar) firstDay.clone();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  			Iterator&lt;GregorianCalendar&gt; itr = apptOccursOnDays.iterator();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  			<strong class="jxr_keyword">while</strong> (itr.hasNext()) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  				GregorianCalendar apptOccursOn = (GregorianCalendar) itr.next();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  				<strong class="jxr_keyword">while</strong> (nextDay.before(apptOccursOn)) {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  					daysDifference++;
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  					nextDay.add(nextDay.DAY_OF_MONTH, 1);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  				}
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  				CalDay calDayOfAppt = (CalDay) calDays.get(daysDifference);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  				calDayOfAppt.addAppt(appt);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  			}
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  		}
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  		  <strong class="jxr_keyword">return</strong> calDays;
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  	  }
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  	   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">	     * This takes the given appointment and constructs a linked list of </em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">	     * GregorianCalendar's, each of which represent a day when the appointment</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">	     * occurs. The days are guaranteed to be between firstDay (inclusive) and</em>
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">	     * lastDay (exclusive). They are guaranteed to be in order.</em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">	     **/</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  	    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> LinkedList&lt;GregorianCalendar&gt; getApptOccurences(Appt appt, 
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  	        GregorianCalendar firstDay, GregorianCalendar lastDay) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  	        
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  	        LinkedList&lt;GregorianCalendar&gt; result = <strong class="jxr_keyword">new</strong> LinkedList&lt;GregorianCalendar&gt;();
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  	        
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  	        <em class="jxr_comment">//Make sure that the firstDay is before the last day</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  	        <strong class="jxr_keyword">if</strong> (!firstDay.before(lastDay)) {
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  	            <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  	        }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> 	        
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> 	        <em class="jxr_comment">//Get the first recurrence taken care of</em>
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 	        GregorianCalendar occurrenceDay = 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> 	                <strong class="jxr_keyword">new</strong> GregorianCalendar(appt.getStartYear(), appt.getStartMonth(), 
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> 	                    appt.getStartDay());
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> 	        
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> 	        <em class="jxr_comment">//If the first occurrence is after the last day, then it doesn't matter</em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> 	        <em class="jxr_comment">//when it recurs because those dates must be after the last day too</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> 	        <strong class="jxr_keyword">if</strong> (!occurrenceDay.before(lastDay)) {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 	            <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> 	        }
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> 	        
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> 	            
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> 	            <em class="jxr_comment">//Make sure that there is a limited number of recurrences</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> 	            <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; appt.getRecurNumber()+1; i++) {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> 	                
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> 	                <em class="jxr_comment">//Add the day of occurrence to the list if it is after the first day</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 	                <strong class="jxr_keyword">if</strong> (!occurrenceDay.before(firstDay)) {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> 	                    result.add(occurrenceDay);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> 	                }
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> 	                
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> 	                <em class="jxr_comment">//Calculate the next recurrence day</em>
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> 	                occurrenceDay = getNextApptOccurrence(appt, occurrenceDay);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> 	                <strong class="jxr_keyword">if</strong> (occurrenceDay == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> 	                    <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> 	                }
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> 	                            
+<a class="jxr_linenumber" name="L128" href="#L128">128</a> 	                <em class="jxr_comment">//Keep cycling while the occurence day is in range</em>
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> 	                <strong class="jxr_keyword">if</strong> (!occurrenceDay.before(lastDay)) {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> 	                    <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> 	                }
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> 	            }        
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 	        <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 	    }
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> 	    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">	     * Calculates the next recurring day in the given appointment. If the </em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">	     * appointment does not recur it returns null. If the date cannot be </em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">	     * calculated for some reason it returns null.</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">	     **/</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> 	    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> GregorianCalendar getNextApptOccurrence(Appt appt, 
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 	            GregorianCalendar day) {
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> 	        <em class="jxr_comment">//If the appointment does not recur then return null</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> 	        <strong class="jxr_keyword">if</strong> (!appt.isRecurring()) {
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> 	            <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L145" href="#L145">145</a> 	        }	        
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> 	        <em class="jxr_comment">//Leave the original day untouched.</em>
+<a class="jxr_linenumber" name="L147" href="#L147">147</a> 	        GregorianCalendar nextDay = (GregorianCalendar)day.clone();
+<a class="jxr_linenumber" name="L148" href="#L148">148</a> 	        
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> 	        <em class="jxr_comment">//This depends on the recurrence settings</em>
+<a class="jxr_linenumber" name="L150" href="#L150">150</a> 	        <strong class="jxr_keyword">switch</strong> (appt.getRecurBy()) {
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> 	            <strong class="jxr_keyword">case</strong> Appt.RECUR_BY_WEEKLY:
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> 	                <strong class="jxr_keyword">int</strong>[] recurDays = appt.getRecurDays();
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> 	                
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> 	                <em class="jxr_comment">//If the user specified weekly recurrence and didn't specify</em>
+<a class="jxr_linenumber" name="L155" href="#L155">155</a> 	                <em class="jxr_comment">//which week days, then assume it is the same week day of the</em>
+<a class="jxr_linenumber" name="L156" href="#L156">156</a> 	                <em class="jxr_comment">//first occurrence</em>
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 	                <strong class="jxr_keyword">if</strong> (recurDays.length == 0) {
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> 	                    <em class="jxr_comment">//Add 7 days and return that by default</em>
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 	                    nextDay.add(nextDay.DAY_OF_MONTH, 7);
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> 	                    <strong class="jxr_keyword">return</strong> nextDay;
+<a class="jxr_linenumber" name="L161" href="#L161">161</a> 	                }
+<a class="jxr_linenumber" name="L162" href="#L162">162</a> 	                
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 	                <em class="jxr_comment">//The user did specify weekly recurrence, so increment the</em>
+<a class="jxr_linenumber" name="L164" href="#L164">164</a> 	                <em class="jxr_comment">//day until it falls on a weekday the user specified</em>
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> 	                <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> k = 0; k &lt; 7; k++) {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 	                    nextDay.add(nextDay.DAY_OF_MONTH, 1);
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 	                    <strong class="jxr_keyword">int</strong> newDayOfWeek = nextDay.get(nextDay.DAY_OF_WEEK);
+<a class="jxr_linenumber" name="L168" href="#L168">168</a> 	                
+<a class="jxr_linenumber" name="L169" href="#L169">169</a> 	                    <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; recurDays.length; i++) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> 	                        <em class="jxr_comment">//If the calendar is set to a day of the week that the</em>
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> 	                        <em class="jxr_comment">//appt recurs on then return that day.</em>
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 	                        <strong class="jxr_keyword">if</strong> (recurDays[i] == newDayOfWeek) {
+<a class="jxr_linenumber" name="L173" href="#L173">173</a> 	                            <strong class="jxr_keyword">return</strong> nextDay;
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> 	                        }
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 	                    }
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> 	                }
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> 	                
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 	                <em class="jxr_comment">//The loop above should have found a day. If the program </em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> 	                <em class="jxr_comment">//execution is here then the weekdays specified are not in the</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> 	                <em class="jxr_comment">//range of valid Gregorian Calendar Days. Return null here.</em>
+<a class="jxr_linenumber" name="L181" href="#L181">181</a> 	                <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L182" href="#L182">182</a> 	            <strong class="jxr_keyword">case</strong> Appt.RECUR_BY_MONTHLY:
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 	                <em class="jxr_comment">//Just increment the month and return the day. Not sure what</em>
+<a class="jxr_linenumber" name="L184" href="#L184">184</a> 	                <em class="jxr_comment">//happens when the day is 31 and the next month has 30 days...</em>
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> 	                nextDay.add(nextDay.MONTH, 1);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a> 	                <strong class="jxr_keyword">return</strong> nextDay;
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 	            <strong class="jxr_keyword">case</strong> Appt.RECUR_BY_YEARLY:
+<a class="jxr_linenumber" name="L188" href="#L188">188</a> 	                <em class="jxr_comment">//Just increment the year. The only possible problem is an </em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a> 	                <em class="jxr_comment">//appointment that recurs on February 29.</em>
+<a class="jxr_linenumber" name="L190" href="#L190">190</a> 	                nextDay.add(nextDay.YEAR, 1);
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> 	                <strong class="jxr_keyword">return</strong> nextDay;
+<a class="jxr_linenumber" name="L192" href="#L192">192</a> 	        }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 	  
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 	        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L195" href="#L195">195</a> 	    }
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> 
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> 	    
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> 	    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">	     * Deletes the appointment's information from the appointments data list. </em>
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">	     * @return updated list of appointments if the appointment is deleted successfully, otherwise null.</em>
+<a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_javadoccomment">	     **/</em>
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 	    <strong class="jxr_keyword">public</strong> LinkedList&lt;Appt&gt; deleteAppt(LinkedList&lt;Appt&gt; appts,Appt appt) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 	    	<em class="jxr_comment">//Do not do anything to appts equals to null </em>
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> 	        <strong class="jxr_keyword">if</strong>(appts==<strong class="jxr_keyword">null</strong>||appt==<strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L206" href="#L206">206</a> 	    	<em class="jxr_comment">//Do not do anything to invalid appointments</em>
+<a class="jxr_linenumber" name="L207" href="#L207">207</a> 	        <strong class="jxr_keyword">if</strong> (!appt.getValid()) {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a> 	            <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> 	        }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> 
+<a class="jxr_linenumber" name="L211" href="#L211">211</a> 	        <em class="jxr_comment">//Remove the appointment from the list appts if applicable</em>
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 	        
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 	        <strong class="jxr_keyword">for</strong>(<strong class="jxr_keyword">int</strong> i=1;i&lt;appts.size()-1;i++){
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> 	        	Appt tempAppt=appts.get(i);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> 	        	<strong class="jxr_keyword">if</strong>(tempAppt.equals(appt)){
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> 	        		appts.remove(i);
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 	        		<strong class="jxr_keyword">return</strong> appts;
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> 	        	}
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> 	        		
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 	        }
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> 	        <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 	    }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 	    
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> 	    <strong class="jxr_keyword">public</strong> LinkedList&lt;Appt&gt; permute(LinkedList&lt;Appt&gt; appts, <strong class="jxr_keyword">int</strong>[] pv){
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> 	    	<em class="jxr_comment">/* pv is an array of integers that specify a permutation (a</em>
+<a class="jxr_linenumber" name="L226" href="#L226">226</a> <em class="jxr_comment">	    	   rearrangement or shuffling) of the appointments</em>
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> <em class="jxr_comment">	    	   </em>
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> <em class="jxr_comment">	    	   If the ith element of pv is k, then the ith element of </em>
+<a class="jxr_linenumber" name="L229" href="#L229">229</a> <em class="jxr_comment">	    	   appointments should be placed in the kth position.</em>
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_comment">	    	*/</em>
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 	    	LinkedList&lt;Appt&gt; apptsUpdatedList=<strong class="jxr_keyword">new</strong> LinkedList&lt;Appt&gt;(appts);   
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> 	    	<strong class="jxr_keyword">if</strong>(pv.length != appts.size())
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 	    	    <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException();
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 	    	<strong class="jxr_keyword">int</strong> nexti =  0;
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> 	    	<strong class="jxr_keyword">for</strong>(<strong class="jxr_keyword">int</strong> i = 0;i&lt;pv.length;i++){
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 	    	    <strong class="jxr_keyword">int</strong> newi = pv[nexti];
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> 	    	    newi = pv[nexti];
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> 	    	   Collections.swap(apptsUpdatedList,newi,newi);
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 	    	   nexti = newi;
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> 	    	} 
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>      		<strong class="jxr_keyword">return</strong> apptsUpdatedList;
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> 	        }
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> 
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2018. All rights reserved.</div>
+</body>
+</html>
