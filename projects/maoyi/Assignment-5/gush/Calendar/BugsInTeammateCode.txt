@@ -1,0 +1,47 @@
+Bug report
+
+Bug 1:	
+Method name: isValid()in the Appt.java
+Line number: 112-128 (115)
+Changed: line 115 if(startHour<0 || startHour>23) to if(startHour<0 && startHour>23)
+Cause: the branch of if(startHour<0 && startHour>23) would not be access, even if the varible startHour is invalid, such as startHour= 25.
+
+ private void isValid() {
+    	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
+    				
+    	if(startHour<0 && startHour>23) // bug 1
+    		this.valid=false;
+    	else
+        	if(startMinute<0 || startMinute>59)
+        		this.valid=false;
+        	else
+            	if(startDay<1 || startDay>NumDaysInMonth)
+            		this.valid=false;
+            	else
+                	if(startMonth<1 || startMonth>12)
+                		this.valid=false;
+                	else
+                		this.valid=true;
+    }
+    
+
+
+Bug 2:
+Method name: toString()in the Appt.java
+Line number: 294-301
+Changed: line 296 if (!getValid())to if (getValid())
+Cause: This bug could cause valid string will be reture NUll, which can make string would not be printed out.
+
+
+public String toString()
+{
+	if (getValid()) {      //bug2
+		return null;
+	}
+	String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
+	return "\t"+ day +  this.represntationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
+}
+
+
+
+
